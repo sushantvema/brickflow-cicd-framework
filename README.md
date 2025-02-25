@@ -62,29 +62,39 @@ throughout the development lifecycle.
 To set up a local development environment for Spark code that will be deployed
 to Databricks using BrickFlow, we will follow these steps:
 
+## Activate Virtual Environment
+
+This project uses `uv` package manager for environment management.
+
+Make sure you have `uv` installed on your system. If not, I recommend using the
+standalone installation process from their documentation.
+
 ## Installation and Setup
 
-1. Install Python 3.8 or higher on your local machine.
-
-2. Install the Databricks CLI and configure it:
+1. Make sure you are using `uv`'s version of `databricks-cli`:
 
     ```bash
-    pip install databricks-cli
-    databricks configure -t
+    export DATABRICKS_CLI_DO_NOT_EXECUTE_NEWER_VERSION=1
+    ```
+
+2. Configure/authenticate Databricks CLI, using `uv`'s tool running interface:
+
+    ```bash
+    uv run databricks auth login <workspace_url>
     ```
 
     This will set up your Databricks authentication.
 
-3. Install BrickFlow:
+3. Confirm the connectivity to Databricks:
 
     ```bash
-    pip install brickflows
+    uv run databricks workspace list
     ```
 
-4. Verify the installation:
+4. Verify the installation of BrickFlow:
 
     ```bash
-    bf --help
+    uvx --from brickflows bf --help
     ```
 
 ## Project Configuration
@@ -92,7 +102,7 @@ to Databricks using BrickFlow, we will follow these steps:
 1. Create a new BrickFlow project:
 
     ```bash
-    bf projects add --name your_project_name
+    uvx --from brickflows bf projects add --name your_project_name
     ```
 
 This will create a `brickflow-multi-project.yml` file and an `entrypoint.py` in
