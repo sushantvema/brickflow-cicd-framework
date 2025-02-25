@@ -80,15 +80,19 @@ standalone installation process from their documentation.
 2. Configure/authenticate Databricks CLI, using `uv`'s tool running interface:
 
     ```bash
-    uv run databricks auth login <workspace_url>
+    uv run databricks configure
     ```
 
-    This will set up your Databricks authentication.
+    This will set up your Databricks authentication via Personal Access Token.
+    Make sure to generate and save a personal access token via Databricks
+    interface.
+    You can save this into a `.env` file that follows the `.env.mock` template.
+    TODO: Implement reading from .env file for authentication
 
 3. Confirm the connectivity to Databricks:
 
     ```bash
-    uv run databricks workspace list
+    uv run databricks clusters list
     ```
 
 4. Verify the installation of BrickFlow:
